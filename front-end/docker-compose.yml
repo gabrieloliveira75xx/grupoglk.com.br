@@ -1,0 +1,20 @@
+
+services:
+  grupoglk_com_br_frontend:
+    image: node:22-alpine
+    container_name: grupoglk_com_br_frontend
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: sh -c "npm install && npm run dev"  # Altere para 'npm run dev' se for o comando correto para desenvolvimento
+    environment:
+      - PORT=30000
+      - HOST=0.0.0.0
+    ports:
+      - "30000:30000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grupoglk_com_br.rule=Host(`grupoglk.com.br`)"
+      - "traefik.http.routers.grupoglk_com_br.entrypoints=websecure"
+      - "traefik.http.routers.grupoglk_com_br.tls.certresolver=cloudflare"
+      - "traefik.http.services.grupoglk_com_br.loadbalancer.server.port=30000"

@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-size-base: 16px;
+  --primary: 210 100% 33%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --background: 0 0% 100%;
+  --foreground: 222.2 47.4% 11.2%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  html {
+    font-size: var(--font-size-base);
+  }
+
+  body {
+    font-family: "Inter", sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Poppins", sans-serif;
+    line-height: 1.2;
+  }
+}
+
+@layer components {
+  .container {
+    @apply px-4 mx-auto max-w-7xl;
+  }
+
+  .btn,
+  .button,
+  button {
+    border-radius: var(--radius);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+}
+
+/* High Contrast Mode */
+.contrast-mode {
+  filter: grayscale(100%) contrast(150%);
+}
+
+.contrast-mode * {
+  background-color: black !important;
+  color: white !important;
+  border-color: white !important;
+}
+
+.contrast-mode img,
+.contrast-mode svg {
+  filter: invert(100%);
+}
+
