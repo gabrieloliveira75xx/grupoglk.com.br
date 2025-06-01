@@ -1,0 +1,18 @@
+services:
+  frontend:
+    build: ./front-end
+    container_name: grupoglk-frontend
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grupoglk-frontend.rule=Host(`grupoglk.com.br`)"
+      - "traefik.http.routers.grupoglk-frontend.entrypoints=web"
+      - "traefik.http.services.grupoglk-frontend.loadbalancer.server.port=16006"
+    restart: unless-stopped
+    networks:
+      - traefik-net
+
+networks:
+  traefik-net:
+    external: true

@@ -4,27 +4,38 @@ import { useState, useEffect } from "react"
 import { Plus, Minus, Moon, Eye, ChevronLeft, X } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
+import Cookies from 'js-cookie'
 
 interface AccessibilityMenuProps {
   isMobile?: boolean
 }
 
 export function AccessibilityMenu({ isMobile = false }: AccessibilityMenuProps) {
-  const [fontSize, setFontSize] = useState(100)
-  const [highContrast, setHighContrast] = useState(false)
+  // Initialize state from cookies or defaults
+  const [fontSize, setFontSize] = useState(() => {
+    const savedFontSize = Cookies.get('fontSize')
+    return savedFontSize ? parseInt(savedFontSize) : 100
+  })
+  
+  const [highContrast, setHighContrast] = useState(() => {
+    const savedContrast = Cookies.get('highContrast')
+    return savedContrast === 'true'
+  })
 
-  // Update font size
+  // Update font size and save to cookie
   useEffect(() => {
     document.documentElement.style.fontSize = `${fontSize}%`
+    Cookies.set('fontSize', fontSize.toString(), { expires: 365 }) // Expires in 1 year
   }, [fontSize])
 
-  // Update contrast
+  // Update contrast and save to cookie
   useEffect(() => {
     if (highContrast) {
       document.documentElement.classList.add("contrast-mode")
     } else {
       document.documentElement.classList.remove("contrast-mode")
     }
+    Cookies.set('highContrast', highContrast.toString(), { expires: 365 }) // Expires in 1 year
   }, [highContrast])
 
   const increaseFontSize = () => {
