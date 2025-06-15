@@ -1,5 +1,5 @@
 # Etapa de build: construir a aplicação Next.js
-FROM node:18 AS build
+FROM node:18-alpine AS build
 
 # Definir o diretório de trabalho
 WORKDIR /app
@@ -18,7 +18,7 @@ RUN rm -rf .next && \
     npm run build
 
 # Etapa de produção: rodar a aplicação Next.js
-FROM node:18
+FROM node:18-alpine
 
 # Definir o diretório de trabalho
 WORKDIR /app
@@ -35,10 +35,10 @@ COPY --from=build /app/public ./public
 
 # Configurar variáveis de ambiente
 ENV NODE_ENV=production
-ENV PORT=16006
+ENV PORT=60012
 
-# Expor a porta 16006
-EXPOSE 16006
+# Expor a porta 60012
+EXPOSE 60012
 
 # Comando para iniciar a aplicação
 CMD ["npm", "start"] 

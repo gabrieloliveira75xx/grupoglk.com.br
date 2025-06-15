@@ -8,11 +8,11 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.grupoglk-frontend.rule=Host(`grupoglk.com.br`)"
       - "traefik.http.routers.grupoglk-frontend.entrypoints=web"
-      - "traefik.http.services.grupoglk-frontend.loadbalancer.server.port=16006"
+      - "traefik.http.services.grupoglk-frontend.loadbalancer.server.port=60012"
     restart: unless-stopped
     networks:
       - traefik-net
 
 networks:
   traefik-net:
-    external: true
+    external: true 
